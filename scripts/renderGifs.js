@@ -13,11 +13,14 @@ function starting(){
 }
 
 starting();
-// cut array to size the game and shuffle it
-gifArr = gifArr.slice(0,qtdTotalCards);
-gifArr = gifArr.sort(comparador);
 
+console.log(gifArr)
 function setGame(){
+
+    // cut array to size the game and shuffle it
+    gifArr = gifArr.slice(0,qtdTotalCards);
+    gifArr = gifArr.sort(comparador);
+    
     for (let i = 0; i < qtdTotalCards; i++) {
         const cards = document.querySelector('.cards');
         const card = document.querySelector('.card');
