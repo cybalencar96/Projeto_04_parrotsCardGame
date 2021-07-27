@@ -5,14 +5,13 @@ let frontFace1;
 let frontFace2;
 let gif1;
 let gif2;
+let counterPlays = 0;
+let counterRights = 0;
 
 function selectCard(element) {
 
     const elementBack = element.querySelector('.back-face')
-    // verifies if last element is the same as the new one
-    if (elementBack === backFace1 || elementBack === backFace2) {
-        return;
-    }
+
     qtdSelectedCards += 1;
 
     if (qtdSelectedCards === 1) {
@@ -29,12 +28,17 @@ function selectCard(element) {
         backFace2 = element.querySelector('.back-face');
         frontFace2.style.transform = 'rotateY(-180deg)';
         backFace2.style.transform = 'rotateY(0deg)';
-
         gif2 = backFace2.querySelector('img').getAttribute('src');
-        gif2 = "sdsa";
+        
         // verifica se deu match
         if (gif1 === gif2) {
-            console.log('igual');
+            counterRights += 1;
+
+            if (counterRights === (qtdTotalCards/2)) {
+                setTimeout(function(){
+                    alert(`Você ganhou em ${counterPlays} rodada(s)! \n A melhor pontuação possível é ${qtdTotalCards/2}`);
+                },500);
+            }
 
         } else {
             //  se não deu match, delay 1 seg e desvira as cartas
@@ -45,7 +49,7 @@ function selectCard(element) {
                  frontFace2.style.transform = 'rotateY(0deg)';
              },1000)
         }
-
+        counterPlays += 1;
         qtdSelectedCards = 0;
     }
 }
