@@ -23,7 +23,7 @@ function selectCard(element) {
     const elementBack = element.querySelector('.back-face')
 
     qtdSelectedCards += 1;
-    console.log(qtdSelectedCards)
+
     if (qtdSelectedCards === 1) {
         // garda a imagem e espera até selecionar outra
         frontFace1 = element.querySelector('.front-face');
@@ -73,7 +73,7 @@ function selectCard(element) {
                  backFace2.style.transform = 'rotateY(180deg)';
                  frontFace1.style.transform = 'rotateY(0deg)';
                  frontFace2.style.transform = 'rotateY(0deg)';
-             },1000)
+             },800)
         }
         counterPlays += 1;
         qtdSelectedCards = 0;
@@ -86,18 +86,19 @@ function  cronometer() {
     if (gameStarted){
         if (centisec < 100) {
             centisec += 1;
-        } else {
-            if (sec < 60) {
-                centisec = 0;
-                sec += 1;
-            } else {    
-                sec = 0;
-                min += 1;
-                if (min === 60) {
-                    min = 0;
-                }
-            }
         }
+
+        if (sec < 60 && centisec === 100) {
+            sec += 1;
+        }
+
+        if(min < 60 && sec === 60 && centisec === 100){
+            min += 1;
+        }
+
+        if (centisec === 100) {centisec = 0};
+        if (sec === 60) {sec = 0};
+        if (min === 60) {min = 0};
 
         strCentisec = ("00" + centisec).slice(-2);
         strSec = ("00" + sec).slice(-2);
