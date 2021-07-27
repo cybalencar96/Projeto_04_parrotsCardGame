@@ -1,7 +1,8 @@
-let qtdTotalCards;
+let qtdTotalCards = 0;
 
 // --- gif array with duplicated gifs
 let gifArr = ["bobrossparrot.gif","bobrossparrot.gif","explodyparrot.gif","explodyparrot.gif","fiestaparrot.gif","fiestaparrot.gif","metalparrot.gif","metalparrot.gif","revertitparrot.gif","revertitparrot.gif","tripletsparrot.gif","tripletsparrot.gif","unicornparrot.gif","unicornparrot.gif"];
+starting();
 
 
 function starting(){
@@ -12,15 +13,11 @@ function starting(){
     setGame();
 }
 
-starting();
-
-console.log(gifArr)
 function setGame(){
-
     // cut array to size the game and shuffle it
-    gifArr = gifArr.slice(0,qtdTotalCards);
-    gifArr = gifArr.sort(comparador);
-    
+    partialGifArr = gifArr.slice(0,qtdTotalCards);
+    partialGifArr = partialGifArr.sort(comparador);
+
     for (let i = 0; i < qtdTotalCards; i++) {
         const cards = document.querySelector('.cards');
         const card = document.querySelector('.card');
@@ -28,13 +25,37 @@ function setGame(){
         // Need to create a new card div with all of its childs (arg true)
         const newCard = card.cloneNode(true);
         // set new gif to newCard
-        newCard.querySelector('.back-face img').src = `/assets/${gifArr[i]}`;
+        newCard.querySelector('.back-face img').src = `/assets/${partialGifArr[i]}`;
+        newCard.classList.add('new-card');
         // append new card div
         cards.appendChild(newCard);
         if (i === qtdTotalCards - 1) {
-            cards.removeChild(card);
+            card.style.display = "none";
         }
     }    
+}
+
+function restart() {
+    const newCards = document.querySelectorAll(".new-card");
+    const cards = document.querySelector('.cards');
+    const card = document.querySelector('.card');
+
+    for (let i = 0; i < newCards.length; i++){
+        cards.removeChild(newCards[i]);
+    }
+
+    card.style.display = "initial";
+
+    // reseting global variables
+    qtdTotalCards = 0;
+    qtdSelectedCards = 0;
+    counterPlays = 0;
+    counterRights = 0;
+    min=0;
+    sec=0;
+    centisec=0;
+
+    starting();
 }
 
 

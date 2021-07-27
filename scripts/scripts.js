@@ -10,7 +10,7 @@ let counterRights = 0;
 let gameStarted = false;
 let min=0;
 let sec=0;
-let centisec=0
+let centisec=0;
 let strSec="00";
 let strMin="00";
 let strCentisec="00"
@@ -23,7 +23,7 @@ function selectCard(element) {
     const elementBack = element.querySelector('.back-face')
 
     qtdSelectedCards += 1;
-
+    console.log(qtdSelectedCards)
     if (qtdSelectedCards === 1) {
         // garda a imagem e espera até selecionar outra
         frontFace1 = element.querySelector('.front-face');
@@ -53,7 +53,7 @@ function selectCard(element) {
 
                     newGame = prompt('Deseja iniciar um novo jogo? s/n');
                     if (newGame === 's') {
-                        starting();
+                        restart();
                     } else {
                         //faz oq?
                     }
