@@ -22,13 +22,17 @@ function setGame(){
         const cards = document.querySelector('.cards');
         const card = document.querySelector('.card');
     
-        // Need to create a new card div with all of its childs (arg true)
+        // Need to create a new card div witch is a copy of the existing one (with all of its childs (arg true))
         const newCard = card.cloneNode(true);
-        // set new gif to newCard
+
+        // set a random gif to newCard using src attribute
         newCard.querySelector('.back-face img').src = `/assets/${partialGifArr[i]}`;
         newCard.classList.add('new-card');
+
         // append new card div
         cards.appendChild(newCard);
+        
+        // hide model card
         if (i === qtdTotalCards - 1) {
             card.style.display = "none";
         }
@@ -40,6 +44,7 @@ function restart() {
     const cards = document.querySelector('.cards');
     const card = document.querySelector('.card');
 
+    // remove all new Cards
     for (let i = 0; i < newCards.length; i++){
         cards.removeChild(newCards[i]);
     }
@@ -55,6 +60,7 @@ function restart() {
     sec=0;
     centisec=0;
 
+    // start new game
     starting();
 }
 

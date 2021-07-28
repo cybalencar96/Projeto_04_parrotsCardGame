@@ -13,20 +13,25 @@
     <title>Memory game - Parrots</title>
 </head>
 <body>
-    <h1 class="titulo">PARROT CARD GAME</h1>
-    <h2 class="timer">00:00:00</h2>
+    <header>
+        <h1 class="titulo">PARROT CARD GAME</h1>
+        <h2 class="timer">00:00:00</h2>
+    </header>
+    
 
-
-    <div class="cards">
-        <div class="card" onclick="selectCard(this)">
-            <div class="front-face face">
-                <img src="/assets/front.png" alt="front">
-            </div>
-            <div class="back-face face">
-                <img src="/assets/bobrossparrot.gif" class="hidden" alt="bro">
-            </div>
-        </div>
-    </div>
+    <main>
+        <ul class="cards">
+            <li class="card" onclick="selectCard(this)">
+                <div class="front-face face">
+                    <img src="/assets/front.png" alt="front">
+                </div>
+                <div class="back-face face">
+                    <img src="/assets/bobrossparrot.gif" class="hidden" alt="bro">
+                </div>
+            </li>
+        </ul>
+    </main>
+    
 
     <script src="scripts/renderGifs.js"></script>
     <script src="scripts/scripts.js"></script>
