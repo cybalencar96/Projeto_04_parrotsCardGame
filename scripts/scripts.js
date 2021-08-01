@@ -39,7 +39,7 @@ function starting(){
         qtdTotalCards = Number(prompt("Digite a quantidade de cartas para jogar (apenas numeros inteiro e pares entre 4 e 14)"));
     } while (((qtdTotalCards % 2) !== 0 || qtdTotalCards < 4 || qtdTotalCards > 14) && qtdTotalCards !== -1);
 
-    setRanking("", 0,qtdTotalCards,'load');
+    setRanking("", "",qtdTotalCards,'load');
     setGame();
 }
 
@@ -116,7 +116,6 @@ function selectCard(element) {
                 qtdSelectedCards = 0;
                 // if match, increment counter of right moves
                 counterRights += 1;
-                console.log(counterRights);
                 // verifies if game is over
                 if (counterRights === (qtdTotalCards/2)) { gameOver(); }
 
@@ -155,13 +154,12 @@ function gameOver() {
     // stop timer
     clearInterval(idInterval);
     // saving ranking results
-    let timeEndPure = timeEnd.replaceAll(":","")
-    setRanking(playerName,timeEndPure, qtdTotalCards,'save');
+    setRanking(playerName,timeEnd, qtdTotalCards,'save');
     
     // send victory message
     setTimeout(function(){
         alert(`Você ganhou em ${counterPlays} rodada(s)! \n A melhor pontuação possível é ${qtdTotalCards/2} \n Tempo de jogo: ${timeEnd}`);
-        setRanking("", 0,qtdTotalCards,'load');
+        setRanking("", "",qtdTotalCards,'load');
 
         // question to restart the game
         newGame = prompt('Deseja iniciar um novo jogo? s/n');
@@ -203,7 +201,7 @@ function restart() {
 function  cronometer() {
     if (gameStarted){
         if (centisec < 100) {centisec += 1;}
-        if (sec < 60 && centisec === 100) {sec += 1; console.log('segundo')}
+        if (sec < 60 && centisec === 100) {sec += 1;}
         if(min < 60 && sec === 60 && centisec === 100) {min += 1;}
 
         if (centisec === 100) {centisec = 0};
@@ -221,41 +219,43 @@ function  cronometer() {
         timer.innerHTML = `00:00:00`
     }
 }
-function setRanking(playerName = "",timeFinish = 0, qtdCardsPlay,operation) {
+function setRanking(playerName = "",timeFinish = "", qtdCardsPlay,operation) {
     let gameRanks = [
         {},{},{},{},
         {
             //using index 4 to represent game with 4 cards
             names: ["","","","","","","","","","",],
-            times:[0,0,0,0,0,0,0,0,0,0]
+            times:["0","0","0","0","0","0","0","0","0","0"]
         },{},
         {
             //using index 6 to represent game with 6 cards
             names: ["","","","","","","","","","",],
-            times:[0,0,0,0,0,0,0,0,0,0]
+            times:["0","0","0","0","0","0","0","0","0","0"]
         },{},
         {
             //using index 8 to represent game with 8 cards
             names: ["","","","","","","","","","",],
-            times:[0,0,0,0,0,0,0,0,0,0]
+            times:["0","0","0","0","0","0","0","0","0","0"]
         },{},
         {
             //using index 10 to represent game with 10 cards
             names: ["","","","","","","","","","",],
-            times:[0,0,0,0,0,0,0,0,0,0]
+            times:["0","0","0","0","0","0","0","0","0","0"]
         },{},
         {
             //using index 12 to represent game with 12 cards
             names: ["","","","","","","","","","",],
-            times:[0,0,0,0,0,0,0,0,0,0]
+            times:["0","0","0","0","0","0","0","0","0","0"]
         },{},
         {
             //using index 14 to represent game with 14 cards
             names: ["","","","","","","","","","",],
-            times:[0,0,0,0,0,0,0,0,0,0]
+            times:["0","0","0","0","0","0","0","0","0","0"]
         }
 
     ]
+
+    let timeEndPure = Number(timeFinish.replaceAll(":",""));
 
     if (operation === 'save') {
         if (localStorage.gameRanks !== undefined){
@@ -265,11 +265,12 @@ function setRanking(playerName = "",timeFinish = 0, qtdCardsPlay,operation) {
 
         // percorre array para inserir valores de vitoria (nome e tempo)
         for (let i = 0; i < 10; i++){
-            let timeVal = gameRanks[qtdCardsPlay].times[i]
+
+            let timeVal = Number(gameRanks[qtdCardsPlay].times[i].replaceAll(":",""));
 
             if (timeVal === 0) { timeVal = 1000000; }
 
-            if (timeFinish < timeVal) {
+            if (timeEndPure < timeVal) {
                 // função splice inserindo valores ordenadamente em array sem excluir valores
                 gameRanks[qtdCardsPlay].times.splice(i,0,timeFinish);
                 gameRanks[qtdCardsPlay].names.splice(i,0,playerName);
@@ -310,3 +311,5 @@ function setRanking(playerName = "",timeFinish = 0, qtdCardsPlay,operation) {
 function comparador() {
 	return Math.random() - 0.5;
 }
+
+// localStorage.clear();
